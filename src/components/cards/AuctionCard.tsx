@@ -1,5 +1,5 @@
-import { Button } from "./ui/button";
-import { ImageWithFallback } from "./herobackground/ImageWithFallback";
+import { Button } from "../ui/button";
+import { ImageWithFallback } from "../herobackground/ImageWithFallback";
 import { Clock } from "lucide-react";
 
 interface AuctionCardProps {

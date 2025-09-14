@@ -1,6 +1,8 @@
+import Cadastro from "../pages/Cadastro";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Search } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Header() {
   return (
@@ -9,12 +11,14 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 
-              className="text-xl font-bold text-[#E53935]"
-              style={{ fontSize: '1.5rem', fontWeight: '700' }}
-            >
-              Olho no Lance!
-            </h1>
+            <a href="#">
+              <h1
+                className="text-xl font-bold text-[#E53935]"
+                style={{ fontSize: '1.5rem', fontWeight: '700' }}
+              >
+                Olho no Lance!
+              </h1>
+            </a>
           </div>
 
           {/* Navigation Menu */}
@@ -53,11 +57,13 @@ export function Header() {
             >
               Entrar
             </Button>
-            <Button 
-              className="bg-[#E53935] text-white hover:bg-[#d32f2f]"
-            >
-              Cadastrar
-            </Button>
+              <Link to = "/Cadastro">
+                <Button
+                  className="bg-[#E53935] text-white hover:bg-[#d32f2f]"
+                >
+                  Cadastrar
+                </Button>
+              </Link>
           </div>
         </div>
       </div>

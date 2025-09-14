@@ -1,17 +1,17 @@
-import { Header } from "./components/Header";
-import { HeroSection } from "./components/HeroSection";
-import { AuctionGrid } from "./components/AuctionGrid";
-import { FeaturedCarousel } from "./components/FeaturedCarousel";
-import { Footer } from "./components/Footer";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Cadastro from './pages/Cadastro';
 
-export default function App() {
+function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      <HeroSection />
-      <AuctionGrid />
-      <FeaturedCarousel />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        {/* Outras páginas virão aqui */}
+      </Routes>
+    </Router>
   );
 }
+
+export default App;
