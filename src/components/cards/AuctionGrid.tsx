@@ -74,7 +74,7 @@ export function AuctionGrid() {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {auctionItems.map((item) => (
-            <AuctionCard key={item.id} {...item} />
+            <AuctionCard image={""} timeLeft={""} key={item.id} {...item} />
           ))}
         </div>
       </div>

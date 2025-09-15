@@ -4,7 +4,7 @@ import { AuctionGrid } from "../components/cards/AuctionGrid";
 import { FeaturedCarousel } from "../components/FeaturedCarousel";
 import { Footer } from "../components/Footer";
 
-export default function App() {
+export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       <Header />

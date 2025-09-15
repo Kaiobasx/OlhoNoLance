@@ -7,9 +7,11 @@ interface AuctionCardProps {
   title: string;
   description: string;
   currentBid: number;
+  timeLeft: string;
   timeRemaining: string;
   imageUrl: string;
   imageAlt: string;
+  image: string;
 }
 
 export function AuctionCard({ 

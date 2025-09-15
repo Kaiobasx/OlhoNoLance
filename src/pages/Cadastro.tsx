@@ -1,16 +1,22 @@
-import { Header } from '../components/Header';
-import { Footer } from '../components/Footer';
-import { CadastroForm } from '../components/forms/CadastroForms'; // Importe o formulário
+// src/pages/Register.tsx
 
-export default function Cadastro() {
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { CadastroForms } from "../components/forms/CadastroForms";
+import { Page } from "../hooks/useNavigation"; // Se você usar o mesmo hook
+
+interface RegisterProps {
+  onNavigate: (page: Page) => void;
+}
+
+export default function Register({ onNavigate }: RegisterProps) {
+  // A página apenas renderiza o layout e o componente do formulário.
+  // Toda a lógica do formulário fica dentro de <RegisterForm />.
   return (
     <div>
       <Header />
-      <main className="flex justify-center items-center min-h-screen">
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-          <h2 className="text-2xl font-bold mb-6 text-center">Cadastre-se</h2>
-          <CadastroForm /> {/* Use o componente aqui */}
-        </div>
+      <main className="flex justify-center items-center min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <CadastroForms onSuccess={() => onNavigate('home')} />
       </main>
       <Footer />
     </div>
