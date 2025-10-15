@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
-import { Checkbox } from "../components/ui/checkbox";
-import { Separator } from "../components/ui/separator";
+import { Button } from "./components/ui/button";
+import { Input } from "./components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
+import { Checkbox } from "./components/ui/checkbox";
+import { Separator } from "./components/ui/separator";
 import { Eye, EyeOff, Mail, Lock, Chrome, Facebook, Apple } from "lucide-react";
-import { Page } from "../hooks/useNavigation";
+import { Page } from "./hooks/useNavigation";
 
 interface LoginProps {
   onNavigate: (page: Page) => void;
 }
 
-export function Login({ onNavigate }: LoginProps) {
+export default function Login({ onNavigate }: LoginProps) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",

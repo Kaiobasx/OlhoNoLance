@@ -1,9 +1,9 @@
 // src/pages/Register.tsx
 
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { CadastroForms } from "../components/forms/CadastroForms";
-import { Page } from "../hooks/useNavigation"; // Se você usar o mesmo hook
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { CadastroForms } from "./components/forms/CadastroForms";
+import { Page } from "./hooks/useNavigation"; // Se você usar o mesmo hook
 
 interface RegisterProps {
   onNavigate: (page: Page) => void;

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { AuctionCard } from "../components/cards/AuctionCard";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { AuctionCard } from "./components/cards/AuctionCard";
+import { Button } from "./components/ui/button";
+import { Input } from "./components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
 import { Search, Filter } from "lucide-react";
 
-export function LeilaoAtivos() {
+export default function LeilaoAtivos() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("ending-soon");
 
