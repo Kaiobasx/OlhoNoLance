@@ -1,0 +1,14 @@
+2025-11-09 15:20:01.913077-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PESSOA" already exists; SQL statement:
+CREATE TABLE pessoa (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100)
+) [42101-232]
+2025-11-09 15:20:18.480779-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PESSOA" already exists; SQL statement:
+CREATE TABLE pessoa (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100)
+) [42101-232]
