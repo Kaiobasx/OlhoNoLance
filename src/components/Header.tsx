@@ -1,4 +1,4 @@
-import Cadastro from "../pages/Cadastro";
+import Cadastro from "..//Cadastro";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Search } from "lucide-react";
