@@ -54,7 +54,7 @@ export function CadastroForms({ onSuccess }: RegisterFormProps) {
     terms: false,
     privacy: false
   });
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +63,7 @@ export function CadastroForms({ onSuccess }: RegisterFormProps) {
   const progress = (currentStep / totalSteps) * 100;
 
   const interests = [
-    "Futebol", "Basquete", "Tênis", "Fórmula 1", "Olimpíadas", 
+    "Futebol", "Basquete", "Tênis", "Fórmula 1", "Olimpíadas",
     "Vôlei", "Golf", "Baseball", "Hockey", "Rugby"
   ];
 
@@ -109,9 +109,9 @@ export function CadastroForms({ onSuccess }: RegisterFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateStep(4)) return;
-    
+
     setIsLoading(true);
-    
+
     // AQUI VOCÊ ADICIONA A LÓGICA DO BANCO DE DADOS
     console.log("Dados do formulário:", formData);
 
@@ -207,7 +207,20 @@ export function CadastroForms({ onSuccess }: RegisterFormProps) {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-[#444444] mb-2">CEP *</label>
-                <Input value={formData.cep} onChange={(e) => handleInputChange("cep", e.target.value)} placeholder="00000-000" required />
+                <Input
+                  value={formData.cep}
+                  onChange={(e) => {
+                    const value = e.target.value.replace(/\D/g, ""); // só números
+                    handleInputChange("cep", value);
+
+                    if (value.length === 8) {
+                      buscarCep(value);
+                    }
+                  }}
+                  placeholder="00000-000"
+                  required
+                />
+
               </div>
               <div>
                 <label className="block text-sm font-medium text-[#444444] mb-2">Estado *</label>
@@ -288,6 +301,31 @@ export function CadastroForms({ onSuccess }: RegisterFormProps) {
   function onNavigate(arg0: string): void {
     throw new Error("Function not implemented.");
   }
+
+ const buscarCep = async (cep: string) => {
+  try {
+    const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const data = await response.json();
+
+    if (data.erro) {
+      console.error("CEP não encontrado");
+      return;
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      street: data.logradouro || "",
+      neighborhood: data.bairro || "",
+      city: data.localidade || "",
+      state: data.uf || ""
+    }));
+
+  } catch (error) {
+    console.error("Erro ao buscar CEP:", error);
+  }
+};
+
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
