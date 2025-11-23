@@ -1,0 +1,6 @@
+{
+    "java.project.sourcePaths": [
+        "Backend/backEnd/src/main/java/com/example/backEnd"
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
+}

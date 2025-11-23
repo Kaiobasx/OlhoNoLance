@@ -1,0 +1,15 @@
+2025-11-19 13:41:33.201520-03:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]selec * from usuario"; expected "SAVEPOINT, SCRIPT, SHUTDOWN"; SQL statement:
+selec * from usuario [42001-232]
+2025-11-19 13:49:56.483744-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM USUARIO PASSWORD_RESET_TOKEN [*]IMAGEM PRODUTO USUARIO"; SQL statement:
+SELECT * FROM USUARIO PASSWORD_RESET_TOKEN IMAGEM PRODUTO USUARIO [42000-232]
+2025-11-22 21:44:11.540489-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM LANCE LEILAO [*]LEILAO"; SQL statement:
+SELECT * FROM LANCE LEILAO LEILAO [42000-232]
+2025-11-22 21:44:14.704764-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM LANCE LEILAO [*]LEILAO PRODUTO"; SQL statement:
+SELECT * FROM LANCE LEILAO LEILAO PRODUTO [42000-232]
+2025-11-22 21:44:17.732061-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM LANCE LEILAO [*]LEILAO PRODUTO USUARIO PRODUTO"; SQL statement:
+SELECT * FROM LANCE LEILAO LEILAO PRODUTO USUARIO PRODUTO [42000-232]
