@@ -1,5 +1,3 @@
-
-
 package com.example.backEnd;
 
 import org.springframework.boot.SpringApplication;
@@ -11,4 +9,3 @@ public class BackEndApplication {
         SpringApplication.run(BackEndApplication.class, args);
     }
 }
-	
