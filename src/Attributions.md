@@ -1,6 +1,3 @@
-Aviso sobre Licenças e Direitos Autorais
-Este arquivo e o código do projeto incluem componentes do shadcn/ui, que são usados sob a licença MIT.
+This Figma Make file includes components from [shadcn/ui](https://ui.shadcn.com/) used under [MIT license](https://github.com/shadcn-ui/ui/blob/main/LICENSE.md).
 
-As fotos incluídas neste projeto são de Unsplash e são usadas sob a licença da plataforma.
-
-Essa versão mantém a informação original e a formatação, mas a torna mais acessível em português. Você pode colocar essa seção no seu arquivo README.md, junto com as outras informações sobre o projeto.
+This Figma Make file includes photos from [Unsplash](https://unsplash.com) used under [license](https://unsplash.com/license).

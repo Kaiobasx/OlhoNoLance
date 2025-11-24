@@ -1,4 +1,4 @@
-import Cadastro from "..//Cadastro";
+
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Search } from "lucide-react";
@@ -11,59 +11,61 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#">
+            <Link to="/">
               <h1
                 className="text-xl font-bold text-[#E53935]"
                 style={{ fontSize: '1.5rem', fontWeight: '700' }}
               >
                 Olho no Lance!
               </h1>
-            </a>
+            </Link>
           </div>
 
           {/* Navigation Menu */}
           <nav className="hidden md:flex space-x-8">
-            <a 
-              href="#" 
+            <Link
+              to="/leiloes-ativos"
               className="text-[#444444] hover:text-[#E53935] px-3 py-2 transition-colors"
             >
               Leilões Ativos
-            </a>
-            <a 
-              href="#" 
+            </Link>
+            <Link
+              to="/colecionaveis"
               className="text-[#444444] hover:text-[#E53935] px-3 py-2 transition-colors"
             >
               Itens Colecionáveis
-            </a>
-            <a 
-              href="#" 
+            </Link>
+            <Link
+              to="/sobre"
               className="text-[#444444] hover:text-[#E53935] px-3 py-2 transition-colors"
             >
               Sobre Nós
-            </a>
-            <a 
-              href="#" 
+            </Link>
+            <Link
+              to="/contato"
               className="text-[#444444] hover:text-[#E53935] px-3 py-2 transition-colors"
             >
               Contato
-            </a>
+            </Link>
           </nav>
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
-            <Button 
-              variant="outline" 
-              className="border-[#E53935] text-[#E53935] hover:bg-[#E53935] hover:text-white"
-            >
-              Entrar
-            </Button>
-              <Link to = "/Cadastro">
-                <Button
-                  className="bg-[#E53935] text-white hover:bg-[#d32f2f]"
-                >
-                  Cadastrar
-                </Button>
-              </Link>
+            <Link to="/login">
+              <Button
+                variant="outline"
+                className="border-[#E53935] text-[#E53935] hover:bg-[#E53935] hover:text-white"
+              >
+                Entrar
+              </Button>
+            </Link>
+            <Link to="/cadastro">
+              <Button
+                className="bg-[#E53935] text-white hover:bg-[#d32f2f]"
+              >
+                Cadastrar
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

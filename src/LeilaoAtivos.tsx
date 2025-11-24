@@ -4,6 +4,8 @@ import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
 import { Search, Filter } from "lucide-react";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 export default function LeilaoAtivos() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -67,9 +69,9 @@ export default function LeilaoAtivos() {
   );
 
   return (
-    <div className="min-h-screen bg-white">
+    <><div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header da página */}
+        <Header />
         <div className="mb-8">
           <h1 className="text-[#444444] mb-4" style={{ fontSize: '2rem', fontWeight: '700' }}>
             Leilões Ativos
@@ -86,10 +88,9 @@ export default function LeilaoAtivos() {
                 placeholder="Buscar por item ou categoria..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 w-full"
-              />
+                className="pl-10 w-full" />
             </div>
-            
+
             <div className="flex gap-2">
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-48">
@@ -102,7 +103,7 @@ export default function LeilaoAtivos() {
                   <SelectItem value="lowest-bid">Menor lance</SelectItem>
                 </SelectContent>
               </Select>
-              
+
               <Button variant="outline" className="border-[#E53935] text-[#E53935] hover:bg-[#E53935] hover:text-white">
                 <Filter className="w-4 h-4 mr-2" />
                 Filtros
@@ -143,25 +144,27 @@ export default function LeilaoAtivos() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAuctions.map((auction) => (
             <AuctionCard
-                  key={auction.id}
-                  title={auction.title}
-                  description={auction.description}
-                  currentBid={auction.currentBid}
-                  timeLeft={auction.timeLeft}
-                  image={auction.image} id={""} timeRemaining={""} imageUrl={""} imageAlt={""}            />
+              key={auction.id}
+              title={auction.title}
+              description={auction.description}
+              currentBid={auction.currentBid}
+              timeLeft={auction.timeLeft}
+              image={auction.image} id={""} timeRemaining={""} imageUrl={""} imageAlt={""} />
           ))}
         </div>
 
         {/* Carregamento/Paginação */}
         <div className="text-center mt-8">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="border-[#E53935] text-[#E53935] hover:bg-[#E53935] hover:text-white"
           >
             Carregar Mais Leilões
           </Button>
         </div>
       </div>
-    </div>
+    </div><br />
+    <Footer />
+    </>
   );
 }

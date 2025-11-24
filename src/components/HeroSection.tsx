@@ -1,7 +1,7 @@
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Search } from "lucide-react";
-import { ImageWithFallback } from "./herobackground/ImageWithFallback";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 export function HeroSection() {
   return (
