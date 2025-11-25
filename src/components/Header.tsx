@@ -1,6 +1,4 @@
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Search } from "lucide-react";
 import { Page } from "../hooks/useNavigation";
 
 interface HeaderProps {

@@ -33,8 +33,12 @@ export default function App() {
       case 'register':
         return <Register onNavigate={navigateTo} />;
       case 'auction-details':
-        return <AuctionDetails auctionId={params?.auctionId || '1'} onNavigate={navigateTo} />;
-      default:
+        return (
+          <AuctionDetails
+            auctionId={params?.auctionId || '1'}
+            onNavigate={(page: any) => navigateTo(page)}
+          />
+        ); default:
         return <Home />;
     }
   };

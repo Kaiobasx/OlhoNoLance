@@ -1,5 +1,5 @@
 import { Button } from "../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Card, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Trophy, Users, Shield, Award, Star, Heart, Target, Zap } from "lucide-react";
 

@@ -49,7 +49,7 @@ const mockAuction = {
   }
 };
 
-export function AuctionDetails({ auctionId, onNavigate }: AuctionDetailsProps) {
+export function AuctionDetails({ onNavigate }: AuctionDetailsProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [bidAmount, setBidAmount] = useState(mockAuction.currentBid + mockAuction.minIncrement);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);

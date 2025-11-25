@@ -9,7 +9,7 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": true, // <--- Importante: Não gera .js nem .d.ts
     "jsx": "react-jsx",
     "strict": true,
     "noUnusedLocals": true,
@@ -20,6 +20,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "tsconfig.node.json", "vite.config.ts", "src/main.tsx"],
+  "include": ["src", "src/main.tsx"], // Removido "tsconfig.node.json" e "vite.config.ts"
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Checkbox } from "../components/ui/checkbox";
 import { Separator } from "../components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Progress } from "../components/ui/progress";
-import { Eye, EyeOff, Mail, Lock, User, Phone, MapPin, Chrome, Facebook, Apple, Check } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Phone, Chrome, Check } from "lucide-react";
 import { Page } from "../hooks/useNavigation";
 
 interface RegisterProps {
