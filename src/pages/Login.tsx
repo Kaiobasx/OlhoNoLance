@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
-import { Checkbox } from "./components/ui/checkbox";
-import { Separator } from "./components/ui/separator";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Checkbox } from "../components/ui/checkbox";
+import { Separator } from "../components/ui/separator";
 import { Eye, EyeOff, Mail, Lock, Chrome, Facebook, Apple } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
+import { Page } from "../hooks/useNavigation";
 
-export default function Login() {
-  const navigate = useNavigate();
+interface LoginProps {
+  onNavigate: (page: Page) => void;
+}
+
+export function Login({ onNavigate }: LoginProps) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,14 +27,13 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
+    
     // Simular login
     setTimeout(() => {
       console.log("Login attempt:", formData);
-      console.log("Bem-vindo!");
       alert("Login realizado com sucesso!");
       setIsLoading(false);
-      navigate('/');
+      onNavigate('home');
     }, 1500);
   };
 
@@ -43,11 +43,11 @@ export default function Login() {
   };
 
   return (
-      <><Header /><div className="bg-gray-50 py-16 px- sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
         {/* Logo */}
         <div className="text-center">
-          <h1
+          <h1 
             className="text-[#E53935] mb-2"
             style={{ fontSize: '2rem', fontWeight: '700' }}
           >
@@ -63,7 +63,7 @@ export default function Login() {
               Entre com sua conta para continuar participando dos leilões
             </CardDescription>
           </CardHeader>
-
+          
           <CardContent className="space-y-6">
             {/* Formulário de Login */}
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -77,9 +77,10 @@ export default function Login() {
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    placeholder="  seu@email.com"
+                    placeholder="seu@email.com"
                     className="pl-10"
-                    required />
+                    required
+                  />
                 </div>
               </div>
 
@@ -93,9 +94,10 @@ export default function Login() {
                     type={showPassword ? "text" : "password"}
                     value={formData.password}
                     onChange={(e) => handleInputChange("password", e.target.value)}
-                    placeholder="  Sua senha"
+                    placeholder="Sua senha"
                     className="pl-10 pr-10"
-                    required />
+                    required
+                  />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
@@ -108,15 +110,16 @@ export default function Login() {
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <Checkbox
+                  <Checkbox 
                     id="remember"
                     checked={formData.rememberMe}
-                    onCheckedChange={(checked: boolean) => handleInputChange("rememberMe", checked as boolean)} />
+                    onCheckedChange={(checked) => handleInputChange("rememberMe", checked as boolean)}
+                  />
                   <label htmlFor="remember" className="text-sm text-[#666666]">
                     Lembrar de mim
                   </label>
                 </div>
-
+                
                 <button
                   type="button"
                   className="text-sm text-[#E53935] hover:underline"
@@ -125,8 +128,8 @@ export default function Login() {
                 </button>
               </div>
 
-              <Button
-                type="submit"
+              <Button 
+                type="submit" 
                 className="w-full bg-[#E53935] text-white hover:bg-[#d32f2f]"
                 disabled={isLoading}
               >
@@ -138,6 +141,7 @@ export default function Login() {
             <div className="relative">
               <Separator />
               <div className="absolute inset-0 flex justify-center">
+                <span className="bg-white px-4 text-sm text-[#666666]">ou continue com</span>
               </div>
             </div>
 
@@ -152,7 +156,7 @@ export default function Login() {
                 <Chrome className="w-4 h-4 mr-2" />
                 Continuar com Google
               </Button>
-
+              
               <Button
                 type="button"
                 variant="outline"
@@ -162,7 +166,7 @@ export default function Login() {
                 <Facebook className="w-4 h-4 mr-2" />
                 Continuar com Facebook
               </Button>
-
+              
               <Button
                 type="button"
                 variant="outline"
@@ -179,7 +183,7 @@ export default function Login() {
               <p className="text-[#666666]">
                 Não tem uma conta?{" "}
                 <button
-                  onClick={() => navigate('/cadastro')}
+                  onClick={() => onNavigate('register')}
                   className="text-[#E53935] hover:underline font-medium"
                 >
                   Cadastre-se gratuitamente
@@ -199,7 +203,7 @@ export default function Login() {
                   Sua segurança é nossa prioridade
                 </h3>
                 <p className="text-[#666666] text-sm">
-                  Utilizamos criptografia de última geração para proteger seus dados
+                  Utilizamos criptografia de última geração para proteger seus dados 
                   e transações. Nunca compartilhamos suas informações com terceiros.
                 </p>
               </div>
@@ -209,15 +213,15 @@ export default function Login() {
 
         {/* Links úteis */}
         <div className="text-center text-sm text-[#666666] space-x-4">
-          <button
-            onClick={() => navigate('/about')}
+          <button 
+            onClick={() => onNavigate('about')}
             className="hover:text-[#E53935]"
           >
             Sobre Nós
           </button>
           <span>•</span>
-          <button
-            onClick={() => navigate('/contact')}
+          <button 
+            onClick={() => onNavigate('contact')}
             className="hover:text-[#E53935]"
           >
             Suporte
@@ -229,8 +233,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-          <Footer />
-    </>
-
   );
 }

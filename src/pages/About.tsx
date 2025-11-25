@@ -1,9 +1,9 @@
-import { Button } from "./components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
-import { Badge } from "./components/ui/badge";
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
 import { Trophy, Users, Shield, Award, Star, Heart, Target, Zap } from "lucide-react";
 
-export default function About() {
+export function About() {
   const stats = [
     { label: "Leilões Realizados", value: "5,000+", icon: Trophy },
     { label: "Usuários Ativos", value: "50K+", icon: Users },

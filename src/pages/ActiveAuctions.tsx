@@ -1,65 +1,75 @@
 import { useState } from "react";
-import { AuctionCard } from "./components/cards/AuctionCard";
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
+import { AuctionCard } from "../components/AuctionCard";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Search, Filter } from "lucide-react";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
+import { useNavigation } from "../hooks/useNavigation";
 
-export default function LeilaoAtivos() {
+export function ActiveAuctions() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("ending-soon");
+  const { navigateTo } = useNavigation();
+
+  const handleBidClick = (auctionId: string) => {
+    navigateTo('auction-details', { auctionId });
+  };
 
   // Mock data para leilões ativos
   const auctions = [
     {
-      id: 1,
+      id: "1",
       title: "Camisa do Pelé - Santos 1970",
       description: "Camisa original usada pelo Rei do Futebol",
       currentBid: 15000,
-      timeLeft: "2h 30m",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop"
+      timeRemaining: "2h 30m",
+      imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+      imageAlt: "Camisa do Pelé"
     },
     {
-      id: 2,
+      id: "2",
       title: "Chuteira Messi Barcelona",
       description: "Chuteira autografada pelo craque argentino",
       currentBid: 8500,
-      timeLeft: "5h 45m",
-      image: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&h=300&fit=crop"
+      timeRemaining: "5h 45m",
+      imageUrl: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&h=300&fit=crop",
+      imageAlt: "Chuteira Messi"
     },
     {
-      id: 3,
+      id: "3",
       title: "Bola Copa do Mundo 2018",
       description: "Bola oficial da final da Copa do Mundo",
       currentBid: 12000,
-      timeLeft: "1h 15m",
-      image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=300&fit=crop"
+      timeRemaining: "1h 15m",
+      imageUrl: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=300&fit=crop",
+      imageAlt: "Bola Copa do Mundo"
     },
     {
-      id: 4,
+      id: "4",
       title: "Jersey Michael Jordan",
       description: "Camisa dos Chicago Bulls temporada 1996",
       currentBid: 25000,
-      timeLeft: "3h 20m",
-      image: "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=400&h=300&fit=crop"
+      timeRemaining: "3h 20m",
+      imageUrl: "https://images.unsplash.com/photo-1546483875-ad9014c88eba?w=400&h=300&fit=crop",
+      imageAlt: "Jersey Michael Jordan"
     },
     {
-      id: 5,
+      id: "5",
       title: "Capacete Ayrton Senna",
       description: "Réplica oficial do capacete do piloto",
       currentBid: 18000,
-      timeLeft: "4h 10m",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
+      timeRemaining: "4h 10m",
+      imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
+      imageAlt: "Capacete Ayrton Senna"
     },
     {
-      id: 6,
+      id: "6",
       title: "Raquete Rafael Nadal",
       description: "Raquete usada em Roland Garros 2019",
       currentBid: 9500,
-      timeLeft: "6h 30m",
-      image: "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=400&h=300&fit=crop"
+      timeRemaining: "6h 30m",
+      imageUrl: "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=400&h=300&fit=crop",
+      imageAlt: "Raquete Rafael Nadal"
     }
   ];
 
@@ -69,9 +79,9 @@ export default function LeilaoAtivos() {
   );
 
   return (
-    <><div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Header />
+        {/* Header da página */}
         <div className="mb-8">
           <h1 className="text-[#444444] mb-4" style={{ fontSize: '2rem', fontWeight: '700' }}>
             Leilões Ativos
@@ -88,9 +98,10 @@ export default function LeilaoAtivos() {
                 placeholder="Buscar por item ou categoria..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 w-full" />
+                className="pl-10 w-full"
+              />
             </div>
-
+            
             <div className="flex gap-2">
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-48">
@@ -103,7 +114,7 @@ export default function LeilaoAtivos() {
                   <SelectItem value="lowest-bid">Menor lance</SelectItem>
                 </SelectContent>
               </Select>
-
+              
               <Button variant="outline" className="border-[#E53935] text-[#E53935] hover:bg-[#E53935] hover:text-white">
                 <Filter className="w-4 h-4 mr-2" />
                 Filtros
@@ -145,26 +156,22 @@ export default function LeilaoAtivos() {
           {filteredAuctions.map((auction) => (
             <AuctionCard
               key={auction.id}
-              title={auction.title}
-              description={auction.description}
-              currentBid={auction.currentBid}
-              timeLeft={auction.timeLeft}
-              image={auction.image} id={""} timeRemaining={""} imageUrl={""} imageAlt={""} />
+              {...auction}
+              onBidClick={handleBidClick}
+            />
           ))}
         </div>
 
         {/* Carregamento/Paginação */}
         <div className="text-center mt-8">
-          <Button
-            variant="outline"
+          <Button 
+            variant="outline" 
             className="border-[#E53935] text-[#E53935] hover:bg-[#E53935] hover:text-white"
           >
             Carregar Mais Leilões
           </Button>
         </div>
       </div>
-    </div><br />
-    <Footer />
-    </>
+    </div>
   );
 }

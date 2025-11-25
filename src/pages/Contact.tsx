@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
-import { Textarea } from "./components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Textarea } from "../components/ui/textarea";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { MapPin, Phone, Mail, Clock, MessageCircle, HelpCircle, Shield, User } from "lucide-react";
 
-export default function Contact() {
+export function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -94,7 +94,7 @@ export default function Contact() {
             Entre em Contato
           </h1>
           <p className="max-w-2xl mx-auto" style={{ fontSize: '1.25rem' }}>
-            Estamos aqui para ajudar! Fale conosco sobre qualquer dúvida,
+            Estamos aqui para ajudar! Fale conosco sobre qualquer dúvida, 
             sugestão ou problema que você possa ter.
           </p>
         </div>
@@ -195,8 +195,8 @@ export default function Contact() {
                     />
                   </div>
 
-                  <Button
-                    type="submit"
+                  <Button 
+                    type="submit" 
                     className="w-full bg-[#E53935] text-white hover:bg-[#d32f2f]"
                   >
                     Enviar Mensagem
@@ -267,7 +267,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-[#666666]">
-                  Todos os itens passam por verificação com especialistas certificados
+                  Todos os itens passam por verificação com especialistas certificados 
                   e recebem certificado digital de autenticidade.
                 </p>
               </CardContent>
@@ -279,7 +279,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-[#666666]">
-                  Cobramos uma taxa de 5% sobre o valor final do leilão,
+                  Cobramos uma taxa de 5% sobre o valor final do leilão, 
                   dividida entre comprador e vendedor.
                 </p>
               </CardContent>
@@ -291,7 +291,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-[#666666]">
-                  Basta se cadastrar, fazer depósito caução e começar a dar lances
+                  Basta se cadastrar, fazer depósito caução e começar a dar lances 
                   nos itens de seu interesse.
                 </p>
               </CardContent>
@@ -303,7 +303,7 @@ export default function Contact() {
               </CardHeader>
               <CardContent>
                 <p className="text-[#666666]">
-                  Sim! Entre em contato conosco para avaliar seu item e
+                  Sim! Entre em contato conosco para avaliar seu item e 
                   incluí-lo em nossos leilões.
                 </p>
               </CardContent>

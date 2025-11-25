@@ -1,5 +1,9 @@
 import { AuctionCard } from "./AuctionCard";
 
+interface AuctionGridProps {
+  onBidClick?: (id: string) => void;
+}
+
 const auctionItems = [
   {
     id: "1",
@@ -57,7 +61,7 @@ const auctionItems = [
   }
 ];
 
-export function AuctionGrid() {
+export function AuctionGrid({ onBidClick }: AuctionGridProps) {
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,7 +78,7 @@ export function AuctionGrid() {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {auctionItems.map((item) => (
-            <AuctionCard image={""} timeLeft={""} key={item.id} {...item} />
+            <AuctionCard key={item.id} {...item} onBidClick={onBidClick} />
           ))}
         </div>
       </div>

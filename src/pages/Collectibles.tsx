@@ -1,14 +1,20 @@
 import { useState } from "react";
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
-import { Badge } from "./components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { Search, Star, Trophy, Clock, Heart } from "lucide-react";
+import { useNavigation } from "../hooks/useNavigation";
 
-export default function Collectibles() {
+export function Collectibles() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
+  const { navigateTo } = useNavigation();
+
+  const handleItemClick = (itemId: string) => {
+    navigateTo('auction-details', { auctionId: itemId });
+  };
 
   const categories = [
     { id: "all", name: "Todos", count: 45 },
@@ -184,7 +190,10 @@ export default function Collectibles() {
                         R$ 25.000
                       </p>
                     </div>
-                    <Button className="bg-[#E53935] text-white hover:bg-[#d32f2f]">
+                    <Button 
+                      className="bg-[#E53935] text-white hover:bg-[#d32f2f]"
+                      onClick={() => handleItemClick("1")}
+                    >
                       <Trophy className="w-4 h-4 mr-2" />
                       Participar do Leilão
                     </Button>
@@ -251,6 +260,7 @@ export default function Collectibles() {
                   <Button 
                     variant="outline"
                     className="border-[#E53935] text-[#E53935] hover:bg-[#E53935] hover:text-white"
+                    onClick={() => handleItemClick(item.id.toString())}
                   >
                     Ver Detalhes
                   </Button>

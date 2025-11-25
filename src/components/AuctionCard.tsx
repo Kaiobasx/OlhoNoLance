@@ -1,5 +1,5 @@
-import { Button } from "../ui/button";
-import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { Button } from "./ui/button";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Clock } from "lucide-react";
 
 interface AuctionCardProps {
@@ -7,20 +7,21 @@ interface AuctionCardProps {
   title: string;
   description: string;
   currentBid: number;
-  timeLeft: string;
   timeRemaining: string;
   imageUrl: string;
   imageAlt: string;
-  image: string;
+  onBidClick?: (id: string) => void;
 }
 
 export function AuctionCard({ 
+  id,
   title, 
   description, 
   currentBid, 
   timeRemaining, 
   imageUrl, 
-  imageAlt 
+  imageAlt,
+  onBidClick 
 }: AuctionCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
@@ -62,6 +63,7 @@ export function AuctionCard({
         {/* Bid Button */}
         <Button 
           className="w-full bg-[#E53935] text-white hover:bg-[#d32f2f]"
+          onClick={() => onBidClick?.(id)}
         >
           Dar Lance
         </Button>
