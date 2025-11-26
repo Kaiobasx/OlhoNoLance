@@ -9,7 +9,7 @@ export function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <ImageWithFallback
-          src="https://images.unsplash.com/photo-1561917488-91aa9bc0a3a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcG9ydHMlMjBzdGFkaXVtJTIwYXJlbmElMjBjcm93ZHxlbnwxfHx8fDE3NTc1OTczMjF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          src="https://sindilegis.org.br/wp-content/uploads/2021/07/esportes.jpg"
           alt="Arena esportiva"
           className="w-full h-full object-cover"
         />

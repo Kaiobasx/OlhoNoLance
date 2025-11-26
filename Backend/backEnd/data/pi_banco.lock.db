@@ -1,0 +1,6 @@
+#FileLock
+#Wed Nov 26 00:12:55 BRT 2025
+hostName=192.168.15.40
+id=19abe1fc2caefff34db63da7403e3fbd25b0a2367dc
+method=file
+server=192.168.15.40\:60080

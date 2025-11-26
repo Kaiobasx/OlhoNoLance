@@ -13,25 +13,25 @@ export function About() {
 
   const team = [
     {
-      name: "Carlos Silva",
+      name: "Kaio Vinicius",
       role: "CEO & Fundador",
       description: "Ex-atleta profissional com 15 anos de experiência no mercado esportivo",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
     },
     {
-      name: "Marina Santos",
-      role: "Diretora de Autenticação",
+      name: "Vinicius Silva",
+      role: "Diretor de Autenticação",
       description: "Especialista em autenticação de itens esportivos com certificação internacional",
       image: "https://images.unsplash.com/photo-1494790108755-2616b612b586?w=300&h=300&fit=crop&crop=face"
     },
     {
-      name: "Roberto Lima",
+      name: "Caio Meira",
       role: "CTO",
       description: "Desenvolvedor sênior especializado em plataformas de leilão e blockchain",
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
     },
     {
-      name: "Ana Costa",
+      name: "João Victor",
       role: "Gerente de Comunidade",
       description: "Especialista em relacionamento com colecionadores e comunidades esportivas",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face"

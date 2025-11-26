@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Progress } from "../components/ui/progress";
 import { Eye, EyeOff, Mail, Lock, Phone, Chrome, Check } from "lucide-react";
 import { Page } from "../hooks/useNavigation";
+import { UserService } from "../api/services/userService";
 
 interface RegisterProps {
   onNavigate: (page: Page) => void;
@@ -66,6 +67,34 @@ export function Register({ onNavigate }: RegisterProps) {
     handleInputChange("interests", newInterests);
   };
 
+  // --- Lógica de Busca de CEP ---
+  const buscarCep = async (cep: string) => {
+    try {
+      // Remove caracteres não numéricos para garantir
+      const cleanCep = cep.replace(/\D/g, "");
+      
+      const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+      const data = await response.json();
+
+      if (data.erro) {
+        alert("CEP não encontrado.");
+        return;
+      }
+
+      // Preenche os campos automaticamente
+      setFormData(prev => ({
+        ...prev,
+        street: data.logradouro || "",
+        neighborhood: data.bairro || "",
+        city: data.localidade || "",
+        state: data.uf || ""
+      }));
+
+    } catch (error) {
+      console.error("Erro ao buscar CEP:", error);
+    }
+  };
+
   const validateStep = (step: number): boolean => {
     switch (step) {
       case 1:
@@ -99,13 +128,23 @@ export function Register({ onNavigate }: RegisterProps) {
     
     setIsLoading(true);
     
-    // Simular cadastro
-    setTimeout(() => {
-      console.log("Registration data:", formData);
-      alert("Cadastro realizado com sucesso! Bem-vindo ao Olho no Lance!");
+    try {
+      await UserService.register({
+        nome: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        senha: formData.password,
+        tipoUsuario: "COMPRADOR" 
+      });
+      
+      alert("Cadastro realizado com sucesso!");
+      onNavigate('login'); 
+    } catch (error: any) {
+      console.error("Erro no registo:", error);
+      const mensagemErro = error.response?.data?.message || "Erro ao conectar com o servidor.";
+      alert(`Falha no cadastro: ${mensagemErro}`);
+    } finally {
       setIsLoading(false);
-      onNavigate('home');
-    }, 2000);
+    }
   };
 
   const renderStep = () => {
@@ -263,8 +302,18 @@ export function Register({ onNavigate }: RegisterProps) {
                 </label>
                 <Input
                   value={formData.cep}
-                  onChange={(e) => handleInputChange("cep", e.target.value)}
+                  onChange={(e) => {
+                    // Mantém apenas números
+                    const value = e.target.value.replace(/\D/g, "");
+                    handleInputChange("cep", value);
+
+                    // Se tiver 8 dígitos, chama a API
+                    if (value.length === 8) {
+                      buscarCep(value);
+                    }
+                  }}
                   placeholder="00000-000"
+                  maxLength={9}
                   required
                 />
               </div>
@@ -282,6 +331,7 @@ export function Register({ onNavigate }: RegisterProps) {
                     <SelectItem value="MG">Minas Gerais</SelectItem>
                     <SelectItem value="PR">Paraná</SelectItem>
                     <SelectItem value="RS">Rio Grande do Sul</SelectItem>
+                    {/* Adicione outros estados se quiser, ou deixe a API preencher */}
                   </SelectContent>
                 </Select>
               </div>
@@ -418,7 +468,6 @@ export function Register({ onNavigate }: RegisterProps) {
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
-        {/* Logo e header */}
         <div className="text-center mb-8">
           <h1 
             className="text-[#E53935] mb-2"
@@ -446,7 +495,6 @@ export function Register({ onNavigate }: RegisterProps) {
             <form onSubmit={handleSubmit} className="space-y-6">
               {renderStep()}
 
-              {/* Botões de navegação */}
               <div className="flex justify-between pt-6">
                 <Button
                   type="button"
@@ -478,7 +526,6 @@ export function Register({ onNavigate }: RegisterProps) {
               </div>
             </form>
 
-            {/* Login social (apenas no primeiro passo) */}
             {currentStep === 1 && (
               <>
                 <div className="relative mt-6">
@@ -497,7 +544,6 @@ export function Register({ onNavigate }: RegisterProps) {
               </>
             )}
 
-            {/* Link para login */}
             <div className="text-center mt-6">
               <p className="text-[#666666]">
                 Já tem uma conta?{" "}
