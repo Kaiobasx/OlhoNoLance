@@ -11,7 +11,7 @@ const auctionItems = [
     description: "Camisa oficial do Santos autografada pelo Rei do Futebol",
     currentBid: 25000,
     timeRemaining: "2d 5h 30m",
-    imageUrl: "https://images.unsplash.com/photo-1757365225211-1515ecc8a109?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2NjZXIlMjBqZXJzZXklMjBzcG9ydHMlMjBjb2xsZWN0aWJsZXxlbnwxfHx8fDE3NTc1OTczMjJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    imageUrl: "/image/santos-futebol-clube-camisa-do-santos-assinada-pelo-pele-camiseta-assinada-24781-e1637350455178.png",
     imageAlt: "Camisa de futebol autografada"
   },
   {
