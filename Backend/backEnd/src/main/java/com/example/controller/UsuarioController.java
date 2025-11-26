@@ -57,3 +57,4 @@ public class UsuarioController {
         return ResponseEntity.ok("E-mail enviado!");
     }
 }
+

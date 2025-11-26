@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Progress } from "../components/ui/progress";
 import { Eye, EyeOff, Mail, Lock, Phone, Chrome, Check } from "lucide-react";
 import { Page } from "../hooks/useNavigation";
-import { UserService } from "../api/services/userService";
+// removi UserService para evitar import não usado, pois agora salvamos no localStorage
 
 interface RegisterProps {
   onNavigate: (page: Page) => void;
@@ -17,17 +17,12 @@ interface RegisterProps {
 export function Register({ onNavigate }: RegisterProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    // Passo 1 - Dados básicos
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    
-    // Passo 2 - Segurança
     password: "",
     confirmPassword: "",
-    
-    // Passo 3 - Endereço
     cep: "",
     street: "",
     number: "",
@@ -35,8 +30,6 @@ export function Register({ onNavigate }: RegisterProps) {
     neighborhood: "",
     city: "",
     state: "",
-    
-    // Passo 4 - Preferências
     interests: [] as string[],
     newsletter: true,
     terms: false,
@@ -51,45 +44,38 @@ export function Register({ onNavigate }: RegisterProps) {
   const progress = (currentStep / totalSteps) * 100;
 
   const interests = [
-    "Futebol", "Basquete", "Tênis", "Fórmula 1", "Olimpíadas", 
-    "Vôlei", "Golf", "Baseball", "Hockey", "Rugby"
+    "Futebol", "Basquete", "Tênis", "Fórmula 1",
+    "Olimpíadas", "Vôlei", "Golf", "Baseball",
+    "Hockey", "Rugby"
   ];
 
-  const handleInputChange = (field: string, value: string | boolean | string[]) => {
+  const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleInterestToggle = (interest: string) => {
-    const currentInterests = formData.interests;
-    const newInterests = currentInterests.includes(interest)
-      ? currentInterests.filter(i => i !== interest)
-      : [...currentInterests, interest];
+    const newInterests = formData.interests.includes(interest)
+      ? formData.interests.filter(i => i !== interest)
+      : [...formData.interests, interest];
+
     handleInputChange("interests", newInterests);
   };
 
-  // --- Lógica de Busca de CEP ---
   const buscarCep = async (cep: string) => {
     try {
-      // Remove caracteres não numéricos para garantir
       const cleanCep = cep.replace(/\D/g, "");
-      
       const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
       const data = await response.json();
 
-      if (data.erro) {
-        alert("CEP não encontrado.");
-        return;
+      if (!data.erro) {
+        setFormData(prev => ({
+          ...prev,
+          street: data.logradouro || "",
+          neighborhood: data.bairro || "",
+          city: data.localidade || "",
+          state: data.uf || ""
+        }));
       }
-
-      // Preenche os campos automaticamente
-      setFormData(prev => ({
-        ...prev,
-        street: data.logradouro || "",
-        neighborhood: data.bairro || "",
-        city: data.localidade || "",
-        state: data.uf || ""
-      }));
-
     } catch (error) {
       console.error("Erro ao buscar CEP:", error);
     }
@@ -98,13 +84,13 @@ export function Register({ onNavigate }: RegisterProps) {
   const validateStep = (step: number): boolean => {
     switch (step) {
       case 1:
-        return formData.firstName && formData.lastName && formData.email && formData.phone ? true : false;
+        return !!(formData.firstName && formData.lastName && formData.email && formData.phone);
       case 2:
-        return formData.password && formData.confirmPassword && formData.password === formData.confirmPassword ? true : false;
+        return !!(formData.password && formData.confirmPassword && formData.password === formData.confirmPassword);
       case 3:
-        return formData.cep && formData.street && formData.city && formData.state ? true : false;
+        return !!(formData.cep && formData.street && formData.city && formData.state);
       case 4:
-        return formData.terms && formData.privacy ? true : false;
+        return !!(formData.terms && formData.privacy);
       default:
         return false;
     }
@@ -122,26 +108,58 @@ export function Register({ onNavigate }: RegisterProps) {
     }
   };
 
+  // ---------------------------
+  // handleSubmit ALTERADO: salva no localStorage (sem backend)
+  // ---------------------------
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateStep(4)) return;
-    
+
     setIsLoading(true);
-    
+
     try {
-      await UserService.register({
+      // montar o objeto do usuário a ser salvo
+      const newUser = {
+        id: Date.now(),
         nome: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
         senha: formData.password,
-        tipoUsuario: "COMPRADOR" 
-      });
-      
+        telefone: formData.phone,
+        endereco: {
+          cep: formData.cep,
+          rua: formData.street,
+          numero: formData.number,
+          complemento: formData.complement,
+          bairro: formData.neighborhood,
+          cidade: formData.city,
+          estado: formData.state
+        },
+        interesses: formData.interests,
+        newsletter: formData.newsletter,
+        tipoUsuario: "COMPRADOR",
+        criadoEm: new Date().toISOString()
+      };
+
+      // ler usuários existentes
+      const existingUsers = JSON.parse(localStorage.getItem("usuarios") || "[]");
+
+      // validação de e-mail duplicado
+      const emailExists = existingUsers.some((u: any) => u.email === newUser.email);
+      if (emailExists) {
+        alert("Este e-mail já está cadastrado!");
+        setIsLoading(false);
+        return;
+      }
+
+      // adicionar novo usuário e salvar
+      existingUsers.push(newUser);
+      localStorage.setItem("usuarios", JSON.stringify(existingUsers));
+
       alert("Cadastro realizado com sucesso!");
-      onNavigate('login'); 
-    } catch (error: any) {
-      console.error("Erro no registo:", error);
-      const mensagemErro = error.response?.data?.message || "Erro ao conectar com o servidor.";
-      alert(`Falha no cadastro: ${mensagemErro}`);
+      onNavigate('login');
+    } catch (error) {
+      console.error("Erro ao salvar no localStorage:", error);
+      alert("Erro ao realizar cadastro.");
     } finally {
       setIsLoading(false);
     }
@@ -331,7 +349,6 @@ export function Register({ onNavigate }: RegisterProps) {
                     <SelectItem value="MG">Minas Gerais</SelectItem>
                     <SelectItem value="PR">Paraná</SelectItem>
                     <SelectItem value="RS">Rio Grande do Sul</SelectItem>
-                    {/* Adicione outros estados se quiser, ou deixe a API preencher */}
                   </SelectContent>
                 </Select>
               </div>

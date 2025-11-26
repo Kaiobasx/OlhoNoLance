@@ -5,7 +5,6 @@ import { Card, CardContent } from "../components/ui/card";
 import { Eye, EyeOff, Mail, Lock, Chrome } from "lucide-react";
 import { Separator } from "../components/ui/separator";
 import { Page } from "../hooks/useNavigation";
-import { UserService } from "../api/services/userService";
 
 interface LoginProps {
   onNavigate: (page: Page) => void;
@@ -17,39 +16,42 @@ export function Login({ onNavigate }: LoginProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {  
     e.preventDefault();
     setIsLoading(true);
 
-    try {
-      // Chama o serviço de login definido no userService.ts
-      // Certifique-se que o backend espera { email, senha }
-      const response = await UserService.login({ email, senha: password });
-      
-      // Se o backend devolver um token JWT, é boa prática guardá-lo
-      if (response.token) {
-        localStorage.setItem("token", response.token);
-        // Configurar o token como header padrão para futuras requisições seria o ideal aqui
-      }
+    // 🔥 PEGAR USUÁRIO SALVO
+    const usuarioSalvo = localStorage.getItem("usuario");
 
-      // Login com sucesso -> Redireciona para a Home (ou Dashboard)
-      onNavigate('home');
-    } catch (error: any) {
-      console.error("Erro no login:", error);
-      const mensagemErro = error.response?.data?.message || "Email ou senha incorretos.";
-      alert(`Erro: ${mensagemErro}`);
-    } finally {
+    if (!usuarioSalvo) {
+      alert("Nenhum usuário encontrado. Cadastre-se primeiro.");
       setIsLoading(false);
+      return;
     }
+
+    const usuario = JSON.parse(usuarioSalvo);
+
+    // 🔥 VALIDAR LOGIN
+    if (usuario.email === email && usuario.senha === password) {
+      // 🔥 SALVAR LOGIN ATUAL
+      localStorage.setItem("logado", "true");
+      localStorage.setItem("emailLogado", email);
+
+      onNavigate("home");
+    } else {
+      alert("Email ou senha incorretos!");
+    }
+
+    setIsLoading(false);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h1 
+          <h1
             className="text-[#E53935] mb-2"
-            style={{ fontSize: '2rem', fontWeight: '700' }}
+            style={{ fontSize: "2rem", fontWeight: "700" }}
           >
             Olho no Lance!
           </h1>
@@ -86,13 +88,6 @@ export function Login({ onNavigate }: LoginProps) {
                   <label className="block text-sm font-medium text-[#444444]">
                     Senha
                   </label>
-                  <button
-                    type="button"
-                    className="text-sm text-[#E53935] hover:underline"
-                    onClick={() => alert("Funcionalidade de recuperação de senha ainda não implementada")}
-                  >
-                    Esqueceu a senha?
-                  </button>
                 </div>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -109,7 +104,11 @@ export function Login({ onNavigate }: LoginProps) {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -125,7 +124,9 @@ export function Login({ onNavigate }: LoginProps) {
               <div className="relative mt-6">
                 <Separator />
                 <div className="absolute inset-0 flex justify-center">
-                  <span className="bg-white px-4 text-sm text-[#666666]">ou entre com</span>
+                  <span className="bg-white px-4 text-sm text-[#666666]">
+                    ou entre com
+                  </span>
                 </div>
               </div>
 
@@ -141,7 +142,7 @@ export function Login({ onNavigate }: LoginProps) {
                   Não tem uma conta?{" "}
                   <button
                     type="button"
-                    onClick={() => onNavigate('register')}
+                    onClick={() => onNavigate("register")}
                     className="text-[#E53935] hover:underline font-medium"
                   >
                     Cadastre-se

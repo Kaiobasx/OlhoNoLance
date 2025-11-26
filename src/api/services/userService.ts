@@ -1,30 +1,13 @@
-import { api } from "../client";
+import axios from "axios";
 
-// Define a interface igual ao teu Model 'Usuario' no Java
-export interface User {
-  id?: number;
-  nome: string;
-  email: string;
-  senha?: string; // Cuidado ao enviar senhas, usa HTTPS em produção
-  tipoUsuario?: "COMPRADOR" | "VENDEDOR" | "ADMIN"; // Exemplo de Enum
-}
+const API_URL = "http://localhost:8080/api/usuarios"; // sua rota do backend
 
 export const UserService = {
-  // POST /usuarios (ou o endpoint que definiste no Controller)
-  register: async (userData: User) => {
-    const response = await api.post("/usuarios", userData);
-    return response.data;
+  register: async (data: any) => {
+    return axios.post(`${API_URL}/register`, data);
   },
 
-  // POST /login (se tiveres endpoint de login)
-  login: async (credentials: { email: string; senha: string }) => {
-    const response = await api.post("/auth/login", credentials);
-    return response.data;
+  login: async (data: any) => {
+    return axios.post(`${API_URL}/login`, data);
   },
-
-  // GET /usuarios/{id}
-  getById: async (id: number) => {
-    const response = await api.get<User>(`/usuarios/${id}`);
-    return response.data;
-  }
 };

@@ -1,6 +1,6 @@
 #FileLock
-#Sat Nov 22 23:52:33 BRT 2025
-hostName=LAPTOP-PFBM02JQ.bbrouter
-id=19aaea0a0777bb05732f92d56f9e478b83d27655170
+#Wed Nov 26 19:03:11 BRT 2025
+hostName=LAPTOP-PFBM02JQ
+id=19ac23119b7fb70c7c8b109db23ad3e70fcb7b4de92
 method=file
-server=192.168.20.54\:62120
+server=192.168.33.157\:53064
